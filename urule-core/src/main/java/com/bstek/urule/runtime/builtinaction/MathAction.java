@@ -15,12 +15,12 @@
  ******************************************************************************/
 package com.bstek.urule.runtime.builtinaction;
 
-import java.math.BigDecimal;
-
 import com.bstek.urule.Utils;
 import com.bstek.urule.model.library.action.annotation.ActionBean;
 import com.bstek.urule.model.library.action.annotation.ActionMethod;
 import com.bstek.urule.model.library.action.annotation.ActionMethodParameter;
+
+import java.math.BigDecimal;
 /**
  * @author Jacky.gao
  * @since 2015年11月27日
@@ -50,7 +50,7 @@ public class MathAction {
 	
 	@ActionMethod(name="求正弦")
 	@ActionMethodParameter(names={"数字"})
-	public Number in(Object obj){
+	public Number sin(Object obj){
 		BigDecimal v1=Utils.toBigDecimal(obj);
 		return Math.sin(v1.doubleValue());
 	}
@@ -90,5 +90,20 @@ public class MathAction {
 	public Number round(Object obj){
 		BigDecimal v1=Utils.toBigDecimal(obj);
 		return Math.round(v1.doubleValue());
+	}
+
+	@ActionMethod(name="次幂")
+	@ActionMethodParameter(names={"数字1","数字2"})
+	public Number pow(Object obj,Object obj1){
+		BigDecimal v1=Utils.toBigDecimal(obj);
+		BigDecimal v2=Utils.toBigDecimal(obj1);
+		return Math.pow(v1.doubleValue(), v2.doubleValue());
+	}
+
+	@ActionMethod(name="开方")
+	@ActionMethodParameter(names={"数字"})
+	public Number sqrt(Object obj){
+		BigDecimal v1=Utils.toBigDecimal(obj);
+		return Math.sqrt(v1.doubleValue());
 	}
 }
