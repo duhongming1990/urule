@@ -1,10 +1,9 @@
 package com.bstek.urule.springboot;
 
-import java.util.Properties;
-
+import com.bstek.urule.URulePropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.InitializingBean;
 
-import com.bstek.urule.URulePropertyPlaceholderConfigurer;
+import java.util.Properties;
 
 /**
  * @author Jacky.gao
