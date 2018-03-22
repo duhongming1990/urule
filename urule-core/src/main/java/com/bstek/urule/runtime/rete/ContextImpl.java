@@ -15,19 +15,20 @@
  ******************************************************************************/
 package com.bstek.urule.runtime.rete;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.context.ApplicationContext;
-
 import com.bstek.urule.Utils;
 import com.bstek.urule.debug.MessageItem;
 import com.bstek.urule.debug.MsgType;
 import com.bstek.urule.runtime.ElCalculator;
 import com.bstek.urule.runtime.WorkingMemory;
 import com.bstek.urule.runtime.assertor.AssertorEvaluator;
+import com.greenpineyu.fel.FelEngine;
+import com.greenpineyu.fel.FelEngineImpl;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.context.ApplicationContext;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jacky.gao
@@ -41,6 +42,7 @@ public class ContextImpl implements Context {
 	private WorkingMemory workingMemory;
 	private List<MessageItem> debugMessageItems;
 	private ElCalculator elCalculator=new ElCalculator();
+	private FelEngine felEngine=new FelEngineImpl();
 	public ContextImpl(WorkingMemory workingMemory,ApplicationContext applicationContext,Map<String,String> variableCategoryMap,List<MessageItem> debugMessageItems) {
 		this.workingMemory=workingMemory;
 		this.applicationContext = applicationContext;
@@ -63,7 +65,11 @@ public class ContextImpl implements Context {
 	
 	@Override
 	public Object parseExpression(String expression) {
-		return elCalculator.eval(expression);
+		try{
+			return elCalculator.eval(expression);
+		}catch(Exception e){
+			return felEngine.eval(expression);
+		}
 	}
 	
 	@Override
