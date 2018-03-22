@@ -106,4 +106,11 @@ public class MathAction {
 		BigDecimal v1=Utils.toBigDecimal(obj);
 		return Math.sqrt(v1.doubleValue());
 	}
+
+	@ActionMethod(name="多项式线性回归方程")
+	@ActionMethodParameter(names={"数组对象"})
+	public String size(Object obj){
+		String expression = new PolynomialCurveAction().polynomialCurveExpresionAll((Double [][])obj);
+		return expression;
+	}
 }
