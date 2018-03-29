@@ -15,9 +15,9 @@
  ******************************************************************************/
 package com.bstek.urule.runtime;
 
-import java.util.List;
-
 import com.bstek.urule.debug.MessageItem;
+
+import java.util.List;
 
 /**
  * @author Jacky.gao
@@ -131,5 +131,93 @@ public class KnowledgeSessionFactory {
 	 */
 	public static BatchSession newBatchSession(KnowledgePackage[] knowledgePackages,int threadSize,int batchSize){
 		return new BatchSessionImpl(knowledgePackages,threadSize,batchSize);
+	}
+
+
+
+
+
+
+
+
+
+	/**
+	 * 创建一个用于批处理的BatchSession对象，这里默认将开启10个普通的线程池来运行提交的批处理任务，默认将每100个任务放在一个线程里处理
+	 * @param knowledgePackage 创建BatchSession对象所需要的KnowledgePackage对象
+	 * @return 返回一个新的BatchSession对象
+	 */
+	public static BatchSessionPlus newBatchSessionPlus(KnowledgePackage knowledgePackage){
+		return new BatchSessionPlusImpl(knowledgePackage,BatchSessionPlus.DEFAULT_THREAD_SIZE,BatchSessionPlus.DEFAULT_BATCH_SIZE);
+	}
+
+	/**
+	 * 创建一个用于批处理的BatchSession对象，第二个参数来指定线程池中可用线程个数，默认将每100个任务放在一个线程里处理
+	 * @param knowledgePackage 创建BatchSession对象所需要的KnowledgePackage对象
+	 * @param threadSize 线程池中可用的线程个数
+	 * @return 返回一个新的BatchSession对象
+	 */
+	public static BatchSessionPlus newBatchSessionPlusByThreadSize(KnowledgePackage knowledgePackage,int threadSize){
+		return new BatchSessionPlusImpl(knowledgePackage,threadSize,BatchSessionPlus.DEFAULT_BATCH_SIZE);
+	}
+
+	/**
+	 * 创建一个用于批处理的BatchSession对象，这里默认将开启10个普通的线程池来运行提交的批处理任务，第二个参数用来决定单个线程处理的任务数
+	 * @param knowledgePackage 创建BatchSession对象所需要的KnowledgePackage对象
+	 * @param batchSize 单个线程处理的任务数
+	 * @return 返回一个新的BatchSession对象
+	 */
+	public static BatchSessionPlus newBatchSessionPlusByBatchSize(KnowledgePackage knowledgePackage,int batchSize){
+		return new BatchSessionPlusImpl(knowledgePackage,BatchSessionPlus.DEFAULT_THREAD_SIZE,batchSize);
+	}
+
+	/**
+	 * 创建一个用于批处理的BatchSession对象，第二个参数来指定线程池中可用线程个数，第三个参数用来决定单个线程处理的任务数
+	 * @param knowledgePackage 创建BatchSession对象所需要的KnowledgePackage对象
+	 * @param threadSize 线程池中可用的线程个数
+	 * @param batchSize 单个线程处理的任务数
+	 * @return 返回一个新的BatchSession对象
+	 */
+	public static BatchSessionPlus newBatchSessionPlus(KnowledgePackage knowledgePackage,int threadSize,int batchSize){
+		return new BatchSessionPlusImpl(knowledgePackage,threadSize,batchSize);
+	}
+
+	/**
+	 * 创建一个用于批处理的BatchSession对象，这里默认将开启10个普通的线程池来运行提交的批处理任务，默认将每100个任务放在一个线程里处理
+	 * @param knowledgePackages 创建BatchSession对象所需要的KnowledgePackage集合对象
+	 * @return 返回一个新的BatchSession对象
+	 */
+	public static BatchSessionPlus newBatchSessionPlus(KnowledgePackage[] knowledgePackages){
+		return new BatchSessionPlusImpl(knowledgePackages,BatchSessionPlus.DEFAULT_THREAD_SIZE,BatchSessionPlus.DEFAULT_BATCH_SIZE);
+	}
+
+	/**
+	 * 创建一个用于批处理的BatchSession对象，第二个参数来指定线程池中可用线程个数，默认将每100个任务放在一个线程里处理
+	 * @param knowledgePackages 创建BatchSession对象所需要的KnowledgePackage集合对象
+	 * @param threadSize 线程池中可用的线程个数
+	 * @return 返回一个新的BatchSession对象
+	 */
+	public static BatchSessionPlus newBatchSessionPlusByThreadSize(KnowledgePackage[] knowledgePackages,int threadSize){
+		return new BatchSessionPlusImpl(knowledgePackages,threadSize,BatchSessionPlus.DEFAULT_BATCH_SIZE);
+	}
+
+	/**
+	 * 创建一个用于批处理的BatchSession对象，这里默认将开启10个普通的线程池来运行提交的批处理任务，第二个参数用来决定单个线程处理的任务数
+	 * @param knowledgePackages 创建BatchSession对象所需要的KnowledgePackage集合对象
+	 * @param batchSize 单个线程处理的任务数
+	 * @return 返回一个新的BatchSession对象
+	 */
+	public static BatchSessionPlus newBatchSessionPlusByBatchSize(KnowledgePackage[] knowledgePackages,int batchSize){
+		return new BatchSessionPlusImpl(knowledgePackages,BatchSessionPlus.DEFAULT_THREAD_SIZE,batchSize);
+	}
+
+	/**
+	 * 创建一个用于批处理的BatchSession对象，第二个参数来指定线程池中可用线程个数，第三个参数用来决定单个线程处理的任务数
+	 * @param knowledgePackages 创建BatchSession对象所需要的KnowledgePackage集合对象
+	 * @param threadSize 线程池中可用的线程个数
+	 * @param batchSize 单个线程处理的任务数
+	 * @return 返回一个新的BatchSession对象
+	 */
+	public static BatchSessionPlus newBatchSessionPlus(KnowledgePackage[] knowledgePackages,int threadSize,int batchSize){
+		return new BatchSessionPlusImpl(knowledgePackages,threadSize,batchSize);
 	}
 }
