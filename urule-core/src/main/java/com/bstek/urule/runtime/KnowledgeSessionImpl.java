@@ -113,6 +113,8 @@ public class KnowledgeSessionImpl implements KnowledgeSession{
 						initParameters.put(key, new ArrayList<Object>());
 					}else if(type.equals(Datatype.Set)){
 						initParameters.put(key, new HashSet<Object>());
+					}else if(type.equals(Datatype.Map)) {
+						initParameters.put(key, new HashMap<Object,Object>());
 					}
 				}
 			}
@@ -203,6 +205,7 @@ public class KnowledgeSessionImpl implements KnowledgeSession{
 		for(Object fact:facts){
 			evaluationRete(fact);
 		}
+		evaluationContext.clean();
 		buildElseRules(true);
 		ExecutionResponseImpl resp=(ExecutionResponseImpl)agenda.execute(filter,max);
 		resp.setDuration(System.currentTimeMillis()-start);
@@ -210,19 +213,29 @@ public class KnowledgeSessionImpl implements KnowledgeSession{
 		return resp;
 	}
 	
-	
-	@SuppressWarnings("rawtypes")
 	private void clearInitParameters(){
-		for(Object obj:initParameters.values()){
+		List<String> stringList=new ArrayList<String>();
+		for(String key:initParameters.keySet()) {
+			Object obj=initParameters.get(key);
 			if(obj==null){
 				continue;
 			}
 			if(obj instanceof List){
-				((List)obj).clear();
+				((List<?>)obj).clear();
+			}else if(obj instanceof Set){
+				((Set<?>)obj).clear();
+			}else if(obj instanceof Map) {
+				((Map<?,?>)obj).clear();
+			}else if(obj instanceof Number) {
+				initParameters.put(key, 0);
+			}else if(obj instanceof Boolean) {
+				initParameters.put(key, false);				
+			}else if(obj instanceof String) {
+				stringList.add(key);
 			}
-			if(obj instanceof Set){
-				((Set)obj).clear();
-			}
+		}
+		for(String key:stringList) {
+			initParameters.remove(key);
 		}
 	}
 	
@@ -322,9 +335,9 @@ public class KnowledgeSessionImpl implements KnowledgeSession{
 		for(ReteInstance reteInstance:reteInstanceList){
 			reteInstance.resetForReevaluate(obj);
 		}
-		agenda.reevaluate(obj, evaluationContext);
 		evaluationRete(obj);
 		buildElseRules(false);
+		evaluationContext.clean();
 	}
 	
 	private void evaluationRete(Object fact) {
