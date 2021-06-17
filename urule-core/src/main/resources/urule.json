@@ -1,0 +1,234 @@
+[
+  {
+    "remark": "ruleSet备注",
+    "libraries": [
+      {
+        "path": "jcr:/杜洪明测试项目/远程车控/参数库.pl.xml",
+        "type": "Parameter"
+      }
+    ],
+    "rules": [
+      {
+        "name": "rule1",
+        "salience": 10,
+        "enabled": true,
+        "debug": true,
+        "lhs": {
+          "criterion": {
+            "criterions": [
+              {
+                "criterions": [
+                  {
+                    "op": "GreaterThen",
+                    "left": {
+                      "id": "[变量]参数.车速",
+                      "leftPart": {
+                        "variableName": "ESP_VehicleSpeed",
+                        "variableLabel": "车速",
+                        "variableCategory": "参数",
+                        "datatype": "Integer"
+                      },
+                      "type": "parameter"
+                    },
+                    "value": {
+                      "content": "120",
+                      "valueType": "Input",
+                      "id": "[字符]120"
+                    }
+                  },
+                  {
+                    "op": "GreaterThenEquals",
+                    "left": {
+                      "id": "[变量]参数.天气温度",
+                      "leftPart": {
+                        "variableName": "CLOUD_TEMP",
+                        "variableLabel": "天气温度",
+                        "variableCategory": "参数",
+                        "datatype": "Double"
+                      },
+                      "type": "parameter"
+                    },
+                    "value": {
+                      "content": "30",
+                      "valueType": "Input",
+                      "id": "[字符]30"
+                    }
+                  }
+                ],
+                "junctionType": "and"
+              },
+              {
+                "criterions": [
+                  {
+                    "op": "Equals",
+                    "left": {
+                      "id": "[变量]参数.车速",
+                      "leftPart": {
+                        "variableName": "ESP_VehicleSpeed",
+                        "variableLabel": "车速",
+                        "variableCategory": "参数",
+                        "datatype": "Integer"
+                      },
+                      "type": "parameter"
+                    },
+                    "value": {
+                      "content": "0",
+                      "valueType": "Input",
+                      "id": "[字符]0"
+                    }
+                  },
+                  {
+                    "op": "GreaterThen",
+                    "left": {
+                      "id": "[变量]参数.PM2.5",
+                      "leftPart": {
+                        "variableName": "CLOUD_PM25",
+                        "variableLabel": "PM2.5",
+                        "variableCategory": "参数",
+                        "datatype": "Integer"
+                      },
+                      "type": "parameter"
+                    },
+                    "value": {
+                      "content": "100",
+                      "valueType": "Input",
+                      "id": "[字符]100"
+                    }
+                  }
+                ],
+                "junctionType": "and"
+              }
+            ],
+            "junctionType": "or"
+          }
+        },
+        "rhs": {
+          "actions": [
+            {
+              "priority": 0,
+              "value": {
+                "content": "close window",
+                "valueType": "Input",
+                "id": "[字符]close window"
+              },
+              "actionType": "ConsolePrint"
+            },
+            {
+              "priority": 0,
+              "value": {
+                "content": "open air purifier",
+                "valueType": "Input",
+                "id": "[字符]open air purifier"
+              },
+              "actionType": "ConsolePrint"
+            },
+            {
+              "priority": 0,
+              "value": {
+                "content": "open air conditioning",
+                "valueType": "Input",
+                "id": "[字符]open air conditioning"
+              },
+              "actionType": "ConsolePrint"
+            }
+          ]
+        },
+        "other": {},
+        "loopRule": false,
+        "remark": "rule备注"
+      },
+      {
+        "name": "rule2",
+        "salience": 10,
+        "enabled": false,
+        "debug": true,
+        "lhs": {
+          "criterion": {
+            "criterions": [
+              {
+                "op": "GreaterThen",
+                "left": {
+                  "id": "[变量]参数.车速",
+                  "leftPart": {
+                    "variableName": "ESP_VehicleSpeed",
+                    "variableLabel": "车速",
+                    "variableCategory": "参数",
+                    "datatype": "Integer"
+                  },
+                  "type": "parameter"
+                },
+                "value": {
+                  "content": "10",
+                  "valueType": "Input",
+                  "id": "[字符]10"
+                }
+              }
+            ],
+            "junctionType": "and"
+          }
+        },
+        "rhs": {
+          "actions": [
+            {
+              "priority": 0,
+              "value": {
+                "content": "那么",
+                "valueType": "Input",
+                "id": "[字符]那么"
+              },
+              "actionType": "ConsolePrint"
+            }
+          ]
+        },
+        "other": {
+          "actions": [
+            {
+              "priority": 0,
+              "value": {
+                "content": "否则",
+                "valueType": "Input",
+                "id": "[字符]否则"
+              },
+              "actionType": "ConsolePrint"
+            }
+          ]
+        },
+        "loopRule": true,
+        "remark": "",
+        "loopStart": {
+          "actions": [
+            {
+              "priority": 0,
+              "value": {
+                "content": "开始前动作",
+                "valueType": "Input",
+                "id": "[字符]开始前动作"
+              },
+              "actionType": "ConsolePrint"
+            }
+          ]
+        },
+        "loopEnd": {
+          "actions": [
+            {
+              "priority": 0,
+              "value": {
+                "content": "结束后动作",
+                "valueType": "Input",
+                "id": "[字符]结束后动作"
+              },
+              "actionType": "ConsolePrint"
+            }
+          ]
+        },
+        "loopTarget": {
+          "value": {
+            "content": "10",
+            "valueType": "Input",
+            "id": "[字符]10"
+          }
+        }
+      }
+    ]
+  }
+]
