@@ -57,7 +57,7 @@
 					<include>**/*.woff</include>
 					<include>**/*.woff2</include>
 					<include>**/*.md</include>
-					<include>templates/rule/lua/*.lua</include>
+					<include>**/*.ftl</include>
 				</includes>
 			</resource>
 			<resource>

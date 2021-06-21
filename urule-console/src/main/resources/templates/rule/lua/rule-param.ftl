@@ -1,3 +1,3 @@
--- 定义全局变量
+-- define global variables
 
--- 定义局部变量
+-- define local variables

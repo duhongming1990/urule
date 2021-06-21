@@ -15,12 +15,16 @@
  ******************************************************************************/
 package com.bstek.urule.model.rule.lhs;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author Jacky.gao
  * @since 2014年12月29日
  */
 public class Lhs {
     private String expression;
+    private Set<String> parameters;
     private Criterion criterion;
 
     public String getExpression() {
@@ -29,6 +33,14 @@ public class Lhs {
 
     public void setExpression(String expression) {
         this.expression = expression;
+    }
+
+    public Set<String> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Set<String> parameters) {
+        this.parameters = parameters;
     }
 
     public Criterion getCriterion() {

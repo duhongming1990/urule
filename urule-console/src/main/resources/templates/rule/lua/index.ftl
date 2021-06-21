@@ -1,11 +1,12 @@
--- 定义场景模块
+-- define sense module
 mud_sense = {}
-<#--<#include "rule-param.ftl">-->
-<#--<#include "rule-invoke.ftl">-->
 
--- 定义入口函数(示例)
+<#include "rule-param.ftl">
+<#include "rule-invoke.ftl">
+
+-- define entry function
 function invoke(...)
-<#--<#list ruleSet as ruleSetBean>-->
-<#--    mud_sense.func${ruleSetBean?counter}(signal_1)-->
-<#--</#list>-->
+<#list rules as rule>
+    mud_sense.func${rule?counter}(<#list rule.lhs.parameters as parameter> ${parameter}<#sep>,</#sep></#list>)
+</#list>
 end

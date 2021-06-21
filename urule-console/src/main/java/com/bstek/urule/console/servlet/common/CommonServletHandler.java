@@ -17,9 +17,7 @@ package com.bstek.urule.console.servlet.common;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +30,8 @@ import com.bstek.urule.model.rule.Rule;
 import com.bstek.urule.model.rule.RuleSet;
 import com.bstek.urule.model.rule.SimpleValue;
 import com.bstek.urule.model.rule.lhs.*;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import freemarker.template.Template;
 import lombok.SneakyThrows;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -314,6 +314,17 @@ public class CommonServletHandler extends RenderPageServletHandler {
                 result.add(al);
             }
         }
+
+        for (Object o : result) {
+            RuleSet ruleSet = (RuleSet) o;
+            List<Rule> rules = ruleSet.getRules();
+            for (Rule rule : rules) {
+                Lhs lhs = rule.getLhs();
+                Criterion criterion = rule.getLhs().getCriterion();
+                lhs.setExpression(parseCriterion(criterion));
+                lhs.setParameters(parseParameters(criterion));
+            }
+        }
         writeObjectToJson(resp, result);
     }
 
@@ -361,10 +372,13 @@ public class CommonServletHandler extends RenderPageServletHandler {
             Lhs lhs = rule.getLhs();
             Criterion criterion = rule.getLhs().getCriterion();
             lhs.setExpression(parseCriterion(criterion));
+            lhs.setParameters(parseParameters(criterion));
         }
 
         FreeMakerConfiguration freeMakerConfiguration = FreeMakerConfiguration.RULE_LUA_GENERATE;
         Template template = freeMakerConfiguration.getFreeMakerTemplate().getTemplate();
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/plain");
         template.process(ruleSet, resp.getWriter());
     }
 
@@ -406,6 +420,35 @@ public class CommonServletHandler extends RenderPageServletHandler {
         }
         return "";
     }
+
+    private Set<String> parseParameters(Criterion criterion) {
+        if (criterion instanceof Criteria) {
+            Criteria criteria = (Criteria) criterion;
+            Left left = criteria.getLeft();
+            VariableLeftPart variableLeftPart = (VariableLeftPart) left.getLeftPart();
+            //变量名
+            String variableName = variableLeftPart.getVariableName();
+            return Sets.newHashSet(variableName);
+        } else {
+            Set<String> expressionList = new HashSet<>();
+            if (criterion instanceof Or) {
+                List<Criterion> criterions = ((Or) criterion).getCriterions();
+                for (Criterion c : criterions) {
+                    expressionList.addAll(parseParameters(c));
+                }
+                return expressionList;
+            }
+            if (criterion instanceof And) {
+                List<Criterion> criterions = ((And) criterion).getCriterions();
+                for (Criterion c : criterions) {
+                    expressionList.addAll(parseParameters(c));
+                }
+                return expressionList;
+            }
+        }
+        return Sets.newHashSet();
+    }
+
 
     protected Element parseXml(InputStream stream) {
         SAXReader reader = new SAXReader();
