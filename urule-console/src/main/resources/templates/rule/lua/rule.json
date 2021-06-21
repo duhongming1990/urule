@@ -1,0 +1,126 @@
+{
+  "ruleSet": [
+    {
+      "ruleId": "0x00001",
+      "ruleName": "user custom program demo1",
+      "priority": 1,
+      "enabled": true,
+      "isDebug": true,
+      "rule": {
+        "condition": {
+          "any": [
+            {
+              "all": [
+                {
+                  "gt": [
+                    "ESP_VehicleSpeed",
+                    120
+                  ]
+                },
+                {
+                  "ge": [
+                    "CLOUD_TEMP",
+                    30
+                  ]
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "eq": [
+                    "ESP_VehicleSpeed",
+                    0
+                  ]
+                },
+                {
+                  "gt": [
+                    "CLOUD_PM25",
+                    100
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "operation": [
+          {
+            "consolePrint": "close window"
+          },
+          {
+            "consolePrint": "open air purifier"
+          },
+          {
+            "consolePrint": "open air conditioning"
+          }
+        ],
+        "otherwise": [
+          {
+            "consolePrint": "no action"
+          }
+        ]
+      }
+    },
+    {
+      "ruleId": "0x00002",
+      "ruleName": "user custom program demo2",
+      "priority": 2,
+      "enabled": true,
+      "isDebug": true,
+      "rule": {
+        "condition": {
+          "any": [
+            {
+              "all": [
+                {
+                  "gt": [
+                    "ESP_VehicleSpeed",
+                    120
+                  ]
+                },
+                {
+                  "ge": [
+                    "CLOUD_TEMP",
+                    30
+                  ]
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "eq": [
+                    "ESP_VehicleSpeed",
+                    0
+                  ]
+                },
+                {
+                  "gt": [
+                    "CLOUD_PM25",
+                    100
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "operation": [
+          {
+            "consolePrint": "close window"
+          },
+          {
+            "consolePrint": "open air purifier"
+          },
+          {
+            "consolePrint": "open air conditioning"
+          }
+        ],
+        "otherwise": [
+          {
+            "consolePrint": "no action"
+          }
+        ]
+      }
+    }
+  ]
+}
