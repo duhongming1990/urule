@@ -23,7 +23,7 @@ module.exports={
         permissionConfigEditor:'./src/permission/index.jsx'
     },
     output:{
-        path:path.resolve('../urule-console/src/main/resources/urule-asserts/js'),
+        path:path.resolve('dist/main/resources/urule-asserts/js'),
         filename:'[name].bundle.js'
     },
     module:{
