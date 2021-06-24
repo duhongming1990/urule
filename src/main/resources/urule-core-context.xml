@@ -76,6 +76,9 @@
 	<bean id="urule.CountFunctionDescriptor" class="com.bstek.urule.model.function.impl.CountFunctionDescriptor">
 		<property name="disabled" value="${urule.countFunctionDisabled}"></property>
 	</bean>
+	<bean id="urule.closeDoorFunctionDescriptor" class="com.bstek.urule.model.function.impl.CloseDoorFunctionDescriptor">
+		<property name="disabled" value="${urule.avgFunctionDisabled}"></property>
+	</bean>
 	
 	<bean id="urule.remoteService" class="com.bstek.urule.runtime.service.RemoteServiceImpl">
 		<property name="resporityServerUrl" value="${urule.resporityServerUrl}"></property>
