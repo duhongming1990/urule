@@ -15,35 +15,43 @@
  ******************************************************************************/
 package com.bstek.urule.model.function.impl;
 
+import com.bstek.urule.Utils;
 import com.bstek.urule.model.function.Argument;
 import com.bstek.urule.model.function.FunctionDescriptor;
 import com.bstek.urule.runtime.WorkingMemory;
+
+import java.math.BigDecimal;
 
 /**
  * @author Jacky.gao
  * @since 2015年7月31日
  */
-public class UpdateParameterFunctionDescriptor implements FunctionDescriptor {
+public class OpenWindowFunctionDescriptor implements FunctionDescriptor {
     private boolean disabled = false;
 
     @Override
     public Argument getArgument() {
-        return null;
+        Argument arg = new Argument();
+        arg.setName("是否开车窗");
+        arg.setNeedProperty(false);
+        return arg;
     }
 
     @Override
     public Object doFunction(Object object, String property, WorkingMemory workingMemory) {
-        return workingMemory.update(workingMemory.getParameters());
+        Object obj = Utils.getObjectProperty(object, property);
+        BigDecimal bigobj = Utils.toBigDecimal(obj);
+        return Math.sin(bigobj.doubleValue());
     }
 
     @Override
     public String getName() {
-        return "UpdateParameter";
+        return "openWindow";
     }
 
     @Override
     public String getLabel() {
-        return "更新参数";
+        return "开车窗";
     }
 
     @Override

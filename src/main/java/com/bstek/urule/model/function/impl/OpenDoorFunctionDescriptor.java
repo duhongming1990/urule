@@ -26,13 +26,13 @@ import java.math.BigDecimal;
  * @author Jacky.gao
  * @since 2015年7月31日
  */
-public class CloseDoorFunctionDescriptor implements FunctionDescriptor {
+public class OpenDoorFunctionDescriptor implements FunctionDescriptor {
     private boolean disabled = false;
 
     @Override
     public Argument getArgument() {
         Argument arg = new Argument();
-        arg.setName("是否关车门");
+        arg.setName("是否开车门");
         arg.setNeedProperty(false);
         return arg;
     }
@@ -46,12 +46,12 @@ public class CloseDoorFunctionDescriptor implements FunctionDescriptor {
 
     @Override
     public String getName() {
-        return "closeDoor";
+        return "openDoor";
     }
 
     @Override
     public String getLabel() {
-        return "关车门";
+        return "开车门";
     }
 
     @Override

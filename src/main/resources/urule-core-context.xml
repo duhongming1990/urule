@@ -33,6 +33,8 @@
 	<bean id="urule.rulesRebuilder" class="com.bstek.urule.builder.RulesRebuilder">
 		<property name="resourceLibraryBuilder" ref="urule.resourceLibraryBuilder"></property>
 	</bean>
+
+	<!-- 执行函数 开始 -->
 	<bean id="urule.sinFunctionDescriptor" class="com.bstek.urule.model.function.impl.SinFunctionDescriptor">
 		<property name="disabled" value="${urule.sinFunctionDisabled}"></property>
 	</bean>
@@ -51,7 +53,9 @@
 	<bean id="urule.updateFactFunctionDescriptor" class="com.bstek.urule.model.function.impl.UpdateFactFunctionDescriptor">
 		<property name="disabled" value="${urule.updateFactFunctionDisabled}"></property>
 	</bean>
-	<bean id="urule.updateParameterFunctionDescriptor" class="com.bstek.urule.model.function.impl.UpdateParameterFunctionDescriptor"></bean>
+	<bean id="urule.updateParameterFunctionDescriptor" class="com.bstek.urule.model.function.impl.UpdateParameterFunctionDescriptor">
+		<property name="disabled" value="${urule.updateParameterFunctionDisabled}"></property>
+	</bean>
 	<bean id="urule.trimFunctionDescriptor" class="com.bstek.urule.model.function.impl.TrimFunctionDescriptor">
 		<property name="disabled" value="${urule.trimFunctionDisabled}"></property>
 	</bean>
@@ -76,10 +80,20 @@
 	<bean id="urule.CountFunctionDescriptor" class="com.bstek.urule.model.function.impl.CountFunctionDescriptor">
 		<property name="disabled" value="${urule.countFunctionDisabled}"></property>
 	</bean>
-	<bean id="urule.closeDoorFunctionDescriptor" class="com.bstek.urule.model.function.impl.CloseDoorFunctionDescriptor">
-		<property name="disabled" value="${urule.avgFunctionDisabled}"></property>
+	<bean id="urule.lockDoorFunctionDescriptor" class="com.bstek.urule.model.function.impl.LockDoorFunctionDescriptor">
+		<property name="disabled" value="${urule.lockDoorFunctionDisabled}"></property>
 	</bean>
-	
+	<bean id="urule.openDoorFunctionDescriptor" class="com.bstek.urule.model.function.impl.OpenDoorFunctionDescriptor">
+		<property name="disabled" value="${urule.openDoorFunctionDisabled}"></property>
+	</bean>
+	<bean id="urule.closeWindowFunctionDescriptor" class="com.bstek.urule.model.function.impl.CloseWindowFunctionDescriptor">
+		<property name="disabled" value="${urule.closeWindowFunctionDisabled}"></property>
+	</bean>
+	<bean id="urule.openWindowFunctionDescriptor" class="com.bstek.urule.model.function.impl.OpenWindowFunctionDescriptor">
+		<property name="disabled" value="${urule.openWindowFunctionDisabled}"></property>
+	</bean>
+	<!-- 执行函数 结束 -->
+
 	<bean id="urule.remoteService" class="com.bstek.urule.runtime.service.RemoteServiceImpl">
 		<property name="resporityServerUrl" value="${urule.resporityServerUrl}"></property>
 	</bean>
