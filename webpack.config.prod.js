@@ -18,13 +18,13 @@ module.exports={
         decisionTableEditor:'./src/editor/decisiontable/index.jsx',
         scriptDecisionTableEditor:'./src/editor/scriptdecisiontable/index.jsx',
         decisionTreeEditor:'./src/editor/decisiontree/index.jsx',
-        clientConfigEditor:'./src/client/index.jsx',
+        // clientConfigEditor:'./src/client/index.jsx',
         ulEditor:'./src/editor/ul/index.jsx',
         scoreCardTable:'./src/scorecard/index.jsx',
         permissionConfigEditor:'./src/permission/index.jsx'
     },
     output:{
-        path:path.resolve('../urule-console/src/main/resources/urule-asserts/js'),
+        path:path.resolve('./dist/js'),
         filename:'[name].bundle.js'
     },
     plugins:[
