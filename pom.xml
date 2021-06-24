@@ -3,11 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.bstek.urule</groupId>
-    <artifactId>urule-springboot</artifactId>
+    <groupId>com.chehejia.urule</groupId>
+    <artifactId>bsp-rule-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Urule Springboot Project</name>
-    <description>Urule Springboot Project</description>
+    <name>bsp-rule-service</name>
+    <description>决策引擎：为车端决策引擎服务，提供对应决策库支持</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
