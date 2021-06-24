@@ -3,7 +3,7 @@
  */
 import React,{Component,PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Grid from '../../../components/grid/component/Grid.jsx';
+import Grid from '../../grid/component/Grid.jsx';
 import CommonDialog from './CommonDialog.jsx';
 import * as event from '../../componentEvent.js';
 import * as action from '../../componentAction.js';
