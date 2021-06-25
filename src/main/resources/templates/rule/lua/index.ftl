@@ -7,7 +7,7 @@ mud_sense = {}
 -- define entry function
 function invoke(...)
     local args = {...}
-<#list rules as rule>
+    <#list rules as rule>
     mud_sense.func${rule?counter}(<#list rule.lhs.parameters as parameter>${parameter}<#sep>,</#sep></#list>)
-</#list>
+    </#list>
 end
