@@ -3,7 +3,9 @@
  * Base on Webpack4
  */
 const path=require('path');
+const webpack = require('webpack');
 const webpackFile = require("./config/webpack/webpack.file.conf.js");//一些路径配置
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports={
     mode:'development',
@@ -56,5 +58,12 @@ module.exports={
                 ]
             }
         ]
-    }
+    },
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: "src/static", to: "../" },
+            ],
+        })
+    ]
 };
