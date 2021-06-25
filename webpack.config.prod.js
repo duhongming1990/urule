@@ -4,6 +4,8 @@
  */
 const path=require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpackFile = require("./config/webpack/webpack.file.conf.js");//一些路径配置
+
 module.exports={
     mode:'production',
     entry: {
@@ -24,7 +26,7 @@ module.exports={
         permissionConfigEditor:'./src/permission/index.jsx'
     },
     output:{
-        path:path.resolve('./dist/js'),
+        path:path.resolve( webpackFile.devDirectory + '/js'),
         filename:'[name].bundle.js'
     },
     plugins:[
