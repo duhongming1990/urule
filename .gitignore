@@ -5,3 +5,4 @@ urule-core/target/
 urule-springboot/target/
 node_modules/
 dist/
+entryBuild/

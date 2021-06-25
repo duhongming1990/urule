@@ -3,7 +3,7 @@ const path = require("path");
 const entry = require('./entry');
 const nodeCommon = require('../common/nodeCommon');
 
-const entryBuildPath = path.resolve(__dirname, '../entryBuild');
+const entryBuildPath = path.resolve(__dirname, '../../entryBuild');
 nodeCommon.deleteFile(entryBuildPath);
 fs.mkdirSync(entryBuildPath);
 

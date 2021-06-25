@@ -21,11 +21,12 @@ let scriptInsertHead = `
  <script type="text/javascript" src="../venderjs/jquery.min.js"></script>
  <script type="text/javascript" src="../venderjs/bootstrap.min.js"></script>
  <script type="text/javascript" src="../venderjs/bootbox.min.js"></script>
+ <script type="text/javascript" src="../venderjs/bootstrapValidator.min.js"></script>
 `;
 let scriptInsertBody = `
  <script type="text/javascript" src="js/key.js"></script>
 `
-// htmlCont = htmlCont.replace('</head>', scriptInsertHead + '</head>');
+htmlCont = htmlCont.replace('</head>', scriptInsertHead + '</head>');
 htmlCont = htmlCont.replace('</body>', scriptInsertBody + '</body>');
 
 entryBuild.map((data) => {
