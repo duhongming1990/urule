@@ -24,14 +24,14 @@ let scriptInsertHead = `
  <script type="text/javascript" src="../venderjs/bootstrapValidator.min.js"></script>
 `;
 let scriptInsertBody = `
- <script type="text/javascript" src="js/key.js"></script>
+ <script type="text/javascript" src="js/key1.js"></script>
+ <script type="text/javascript" src="js/key2.js"></script>
 `
 htmlCont = htmlCont.replace('</head>', scriptInsertHead + '</head>');
 htmlCont = htmlCont.replace('</body>', scriptInsertBody + '</body>');
-
 entryBuild.map((data) => {
     fs.writeFile(webpackFile.devDirectory+ '/html/' + data.name + '.html',
-        htmlCont.replace('js/key.js', '../js/' + data.name + '.bundle.js').replace('<%= htmlWebpackPlugin.options.title %>', webpackComConf.titleFun(data.name,data.title)),
+        htmlCont.replace('js/key1.js', '../venderjs/domain.js').replace('js/key2.js', '../js/' + data.name + '.bundle.js').replace('<%= htmlWebpackPlugin.options.title %>', webpackComConf.titleFun(data.name,data.title)),
         'utf8',
         function (err) {
             if (err) {

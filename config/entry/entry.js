@@ -2,7 +2,7 @@ let entry = [
     {
         name: 'frame',
         path: 'frame/index.jsx',
-        title: '${title}',
+        title: '理想汽车 | 车端决策引擎',
         keywords: '',
         description: '',
     },
