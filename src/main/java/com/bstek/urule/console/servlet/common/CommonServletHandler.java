@@ -17,14 +17,24 @@ package com.bstek.urule.console.servlet.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.db.Entity;
+import cn.hutool.db.handler.EntityListHandler;
+import cn.hutool.db.sql.SqlExecutor;
 import com.bstek.urule.console.freemaker.FreeMakerConfiguration;
 
+import com.bstek.urule.console.repository.RepositoryBuilder;
+import com.bstek.urule.model.library.Datatype;
+import com.bstek.urule.model.library.variable.Act;
+import com.bstek.urule.model.library.variable.CategoryType;
+import com.bstek.urule.model.library.variable.Variable;
+import com.bstek.urule.model.library.variable.VariableCategory;
 import com.bstek.urule.model.rule.Op;
 import com.bstek.urule.model.rule.Rule;
 import com.bstek.urule.model.rule.RuleSet;
@@ -330,7 +340,7 @@ public class CommonServletHandler extends RenderPageServletHandler {
     }
 
     @SneakyThrows
-    public void generateLua(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void generateLua(HttpServletRequest req, HttpServletResponse resp) {
         RuleSet ruleSet = null;
         String files = req.getParameter("files");
         files = Utils.decodeURL(files);
@@ -381,6 +391,34 @@ public class CommonServletHandler extends RenderPageServletHandler {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/plain");
         template.process(ruleSet, resp.getWriter());
+    }
+
+    @SneakyThrows
+    public void getSignalLib(HttpServletRequest req, HttpServletResponse resp) {
+        List<Object> result = new ArrayList<Object>();
+
+        Connection connection = RepositoryBuilder.datasource.getConnection();
+        List<Entity> entities = SqlExecutor.query(connection, "SELECT * FROM urule_signal_lib", new EntityListHandler(), new HashMap<>());
+        List<Variable> variables = new ArrayList<>();
+        for (Entity entity : entities) {
+            Variable variable = new Variable();
+            variable.setName(entity.getStr("signal_name"));
+            variable.setType(Datatype.String);
+            variable.setLabel(entity.getStr("description"));
+            variable.setAct(Act.Internal);
+            variables.add(variable);
+        }
+
+        List<VariableCategory> variableCategories = new ArrayList<>();
+        VariableCategory variableCategory = new VariableCategory();
+        variableCategory.setName("内置信号库");
+        variableCategory.setType(CategoryType.BuildIn);
+        variableCategory.setClazz("urule.signal.lib");
+        variableCategory.setVariables(variables);
+        variableCategories.add(variableCategory);
+        result.add(variableCategories);
+
+        writeObjectToJson(resp, result);
     }
 
     /**

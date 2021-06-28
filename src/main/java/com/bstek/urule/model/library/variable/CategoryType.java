@@ -19,5 +19,5 @@ package com.bstek.urule.model.library.variable;
  * @since 2014年12月23日
  */
 public enum CategoryType {
-	Custom,Clazz;
+	Custom,Clazz,BuildIn;
 }
