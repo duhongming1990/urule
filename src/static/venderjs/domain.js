@@ -8,5 +8,6 @@ const config = {
 const domain = new URL(window.location.href).hostname;
 console.log(domain);
 
+window._hostname = domain ? domain : 'https://bsp-ai-ui.dev.k8s.chehejia.com';
 window._server = (config[domain] ? config[domain] : 'https://bsp-rule-service.dev.k8s.chehejia.com') + '/urule';
 window._project = 'projectName';

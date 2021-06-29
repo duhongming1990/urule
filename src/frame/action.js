@@ -398,7 +398,7 @@ function buildData(data,level) {
         case "resourcePackage":
             data._icon=Styles.frameStyle.getResourcePackageIcon();
             data._style=Styles.frameStyle.getResourcePackageIconStyle();
-            data.editorPath="/packageeditor";
+            data.editorPath="/package-editor";
             break;
         case "lib":
             data._icon=Styles.frameStyle.getLibIcon();
@@ -409,25 +409,25 @@ function buildData(data,level) {
             data._icon=Styles.frameStyle.getActionIcon();
             data._style=Styles.frameStyle.getActionIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/actioneditor";
+            data.editorPath="/action-editor";
             break;
         case "parameter":
             data._icon=Styles.frameStyle.getParameterIcon();
             data._style=Styles.frameStyle.getParameterIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/parametereditor";
+            data.editorPath="/parameter-editor";
             break;
         case "constant":
             data._icon=Styles.frameStyle.getConstantIcon();
             data._style=Styles.frameStyle.getConstantIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/constanteditor";
+            data.editorPath="/constant-editor";
             break;
         case "variable":
             data._icon=Styles.frameStyle.getVariableIcon();
             data._style=Styles.frameStyle.getVariableIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/variableeditor";
+            data.editorPath="/variable-editor";
             break;
         case "ruleLib":
             data._icon=Styles.frameStyle.getRuleLibIcon();
@@ -551,37 +551,37 @@ function buildData(data,level) {
             let menus=buildFileContextMenu();
             menus.splice(0,1);
             data.contextMenu=menus;
-            data.editorPath="/uleditor";
+            data.editorPath="/ul-editor";
             break;
         case "decisionTable":
             data._icon=Styles.frameStyle.getDecisionTableIcon();
             data._style=Styles.frameStyle.getDecisionTableIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/decisiontableeditor";
+            data.editorPath="/decisiontable-editor";
             break;
         case "scriptDecisionTable":
             data._icon=Styles.frameStyle.getScriptDecisionTableIcon();
             data._style=Styles.frameStyle.getScriptDecisionTableIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/scriptdecisiontableeditor";
+            data.editorPath="/scriptdecisiontable-editor";
             break;
         case "decisionTree":
             data._icon=Styles.frameStyle.getDecisionTreeIcon();
             data._style=Styles.frameStyle.getDecisionTreeIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/decisiontreeeditor";
+            data.editorPath="/decisiontree-editor";
             break;
         case "flow":
             data._icon=Styles.frameStyle.getFlowIcon();
             data._style=Styles.frameStyle.getFlowIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/ruleflowdesigner";
+            data.editorPath="/rule-flow-designer";
             break;
         case "scorecard":
             data._icon=Styles.frameStyle.getScorecardIcon();
             data._style=Styles.frameStyle.getScorecardIconStyle();
             data.contextMenu=buildFileContextMenu();
-            data.editorPath="/scorecardeditor";
+            data.editorPath="/scorecard-editor";
             break;
     }
     var children=data.children;

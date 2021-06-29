@@ -98,7 +98,7 @@ class TreeItem extends Component{
                 <li>
                     <span id={spanId} onClick={(e)=>{
                         if(isFile){
-                            const url=window._server+data.editorPath+"?file="+data.fullPath;
+                            const url='.'+data.editorPath+".html?file="+data.fullPath;
                             event.eventEmitter.emit(event.TREE_NODE_CLICK,{
                                 id:data.id,
                                 name:data.name,
