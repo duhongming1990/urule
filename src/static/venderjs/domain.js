@@ -6,6 +6,7 @@ const config = {
 }
 
 const domain = new URL(window.location.href).hostname;
+console.log(domain);
 
 window._server = config[domain] ? config[domain] : 'https://bsp-rule-service.dev.k8s.chehejia.com' + '/urule';
 window._project = 'projectName';
