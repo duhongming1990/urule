@@ -69,17 +69,17 @@ export default class RuleTool extends BaseTool{
                 const extName=fileName.substring(pos,fileName.length);
                 let editorPath=window._server;
                 if(extName==='rs.xml'){
-                    editorPath+="/ruleseteditor";
+                    editorPath+="/ruleset-editor";
                 }else if(extName==='dt.xml'){
-                    editorPath+="/decisiontableeditor";
+                    editorPath+="/decisiontable-editor";
                 }else if(extName==='dtree.xml'){
-                    editorPath+="/decisiontreeeditor";
+                    editorPath+="/decisiontree-editor";
                 }else if(extName==='ul'){
-                    editorPath+="/uleditor";
+                    editorPath+="/ul-editor";
                 }else if(extName==='sc'){
-                    editorPath+="/scorecardeditor";
+                    editorPath+="/scorecard-editor";
                 }else if(extName==='rl.xml'){
-                    editorPath+="/ruleflowdesigner";
+                    editorPath+="/rule-flow-designer";
                 }
                 if(editorPath===window._server){
                     MsgBox.alert("无法打开文件["+self.file+"]");
