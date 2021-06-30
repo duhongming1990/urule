@@ -119,7 +119,7 @@ let entry = [
     {
         name: 'rule-flow-designer',
         js_name:'flowDesigner',
-        path: 'flowDesigner/index.jsx',
+        path: 'flow/index.jsx',
         divList: ['container'],
         title: '决策流设计器',
         keywords: '决策流设计器',
