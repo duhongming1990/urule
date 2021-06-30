@@ -43,7 +43,7 @@ export default class VersionListDialog extends Component{
                             <td>{formatDate(row.createDate,'yyyy-MM-dd HH:mm:ss')}</td>
                             <td>
                                 <button type="button" className="btn btn-link" style={{padding:'0'}} onClick={()=> {
-                                    const url=window._server+data.editorPath+"?file="+data.fullPath+':'+row.name;
+                                    const url='https://' + window._hostname+'/html'+data.editorPath+".html?file="+data.fullPath+':'+row.name;
                                     const config={
                                         id:data.id+':'+row.name,
                                         name:data.name+':'+row.name,

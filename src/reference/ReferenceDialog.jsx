@@ -45,7 +45,7 @@ export default class ReferenceDialog extends Component{
                                 <td>{file.path}</td>
                                 <td>{file.type}</td>
                                 <td><button type="button" className="btn btn-link" style={{padding:'5px 5px'}} onClick={function(e) {
-                                    const url=window._server+file.editor+'?file='+file.path;
+                                    const url='https://' + window._hostname+'/html'+file.editor+'html?file='+file.path;
                                     const config={
                                         id:file.path,
                                         name:file.name,

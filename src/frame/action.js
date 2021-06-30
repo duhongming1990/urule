@@ -36,7 +36,7 @@ export function createNewFile(newFileName,fileType,parentNodeData){
                     newFileData,
                     type:CREATE_NEW_FILE
                 });
-                const targetURL=window._server+newFileData.editorPath+"?file="+newFileData.fullPath;
+                const targetURL='https://' + window._hostname+'/html'+newFileData.editorPath+".html?file="+newFileData.fullPath;
                 componentEvent.eventEmitter.emit(componentEvent.TREE_NODE_CLICK,{
                     id:newFileData.id,
                     name:newFileData.name,

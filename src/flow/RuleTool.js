@@ -67,7 +67,7 @@ export default class RuleTool extends BaseTool{
                 }
                 const pos=fileName.indexOf(".")+1;
                 const extName=fileName.substring(pos,fileName.length);
-                let editorPath=window._server;
+                let editorPath='';
                 if(extName==='rs.xml'){
                     editorPath+="/ruleset-editor";
                 }else if(extName==='dt.xml'){
@@ -81,7 +81,7 @@ export default class RuleTool extends BaseTool{
                 }else if(extName==='rl.xml'){
                     editorPath+="/rule-flow-designer";
                 }
-                if(editorPath===window._server){
+                if(editorPath===''){
                     MsgBox.alert("无法打开文件["+self.file+"]");
                     return;
                 }
