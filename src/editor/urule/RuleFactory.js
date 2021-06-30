@@ -15,7 +15,7 @@ import {MsgBox} from 'flowdesigner';
 			return;
 		}
 		var saveButton = '<div class="btn-group btn-group-sm navbar-btn" style="margin-top:0px;margin-bottom: 0px" role="group" aria-label="...">'+
-							'<button id="saveButton" type="button" class="btn btn-default navbar-btn" ><i class="icon-save"></i> 保存</button>' + 
+							'<button id="saveButton" type="button" class="btn btn-default navbar-btn" ><i class="icon-save"></i> 保存</button>' +
 							'<button id="saveButtonNewVersion" type="button" class="btn btn-default navbar-btn" ><i class="icon-save"></i> 保存新版本</button>' +
 						'</div>';
 		var toolbarHtml=`<nav class="navbar navbar-default" style="margin: 5px">
@@ -50,32 +50,32 @@ import {MsgBox} from 'flowdesigner';
 
 		$("#configVarButton").click(function(){
 			if(!self.configVarDialog){
-				self.configVarDialog=new urule.ConfigVariableDialog(self);				
+				self.configVarDialog=new urule.ConfigVariableDialog(self);
 			}
 			self.configVarDialog.open();
 		});
-		
+
 		$("#configConstantsButton").click(function(){
 			if(!self.configConstantDialog){
-				self.configConstantDialog=new urule.ConfigConstantDialog(self);				
+				self.configConstantDialog=new urule.ConfigConstantDialog(self);
 			}
 			self.configConstantDialog.open();
 		});
-		
+
 		$("#configActionButton").click(function(){
 			if(!self.configActionDialog){
-				self.configActionDialog=new urule.ConfigActionDialog(self);				
+				self.configActionDialog=new urule.ConfigActionDialog(self);
 			}
 			self.configActionDialog.open();
 		});
-		
+
 		$("#configParameterButton").click(function(){
 			if(!self.configParameterDialog){
-				self.configParameterDialog=new urule.ConfigParameterDialog(self);				
+				self.configParameterDialog=new urule.ConfigParameterDialog(self);
 			}
-			self.configParameterDialog.open();			
+			self.configParameterDialog.open();
 		});
-		
+
 		$("#saveButton").click(function(){
 			save(false);
 		});
@@ -88,7 +88,7 @@ import {MsgBox} from 'flowdesigner';
 		var remarkContainer=$("<div style='margin: 5px;padding: 5px;'></div>");
         this.append(remarkContainer);
         this.remark=new Remark(remarkContainer);
-		
+
 		_loadRulesetFileData();
 
 		var _this=this;
@@ -162,7 +162,7 @@ import {MsgBox} from 'flowdesigner';
 				})
 			}
 		}
-		
+
 		window._setDirty=function(){
 			if(self._dirty){
 				return;
@@ -186,7 +186,7 @@ import {MsgBox} from 'flowdesigner';
 			$("#saveButtonNewVersion").html("<i class='rf rf-savenewversion'></i> 保存新版本");
 			$("#saveButtonNewVersion").addClass("disabled");
 		};
-		
+
 		function _addRule(data){
 			var ruleContainer=$("<div class='well' style='margin:5px;padding:8px;background-color: #fdfdfd'></div>");
 			self.append(ruleContainer);
@@ -260,6 +260,6 @@ import {MsgBox} from 'flowdesigner';
 				}
 			});
 		}
-		
+
 	};
 })(jQuery);

@@ -19,6 +19,7 @@ webpackFile.copyObj.map((data) => {
 let htmlCont = fs.readFileSync("index.html", "utf-8");
 let scriptInsertHead = `
  <script type="text/javascript" src="../venderjs/jquery.min.js"></script>
+ <script type="text/javascript" src="../venderjs/jquery-ui.min.js"></script>
  <script type="text/javascript" src="../venderjs/bootstrap.min.js"></script>
  <script type="text/javascript" src="../venderjs/bootbox.min.js"></script>
  <script type="text/javascript" src="../venderjs/bootstrapValidator.min.js"></script>
