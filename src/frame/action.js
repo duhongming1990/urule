@@ -1054,6 +1054,11 @@ function seeFileVersions(data) {
 };
 
 function fileDelete(item, dispatch,isFolder) {
+    const index = item.fullPath.substring(1).indexOf('/');
+    const projectName = (index === -1)? item.fullPath.substring(1) : item.fullPath.substring(1, index+1);
+    window._projectName = projectName;
+    window._project = projectName;
+    console.log(window);
     componentEvent.eventEmitter.emit(componentEvent.SHOW_LOADING);
     setTimeout(function () {
         var url=window._server+"/frame/deleteFile";
