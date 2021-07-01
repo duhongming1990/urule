@@ -415,6 +415,11 @@ public class CommonServletHandler extends RenderPageServletHandler {
         variableCategory.setType(CategoryType.BuildIn);
         variableCategory.setClazz("urule.signal.lib");
         variableCategory.setVariables(variables);
+
+        variableCategory = new VariableCategory();
+        variableCategory.setName("派生信号库");
+        variableCategory.setType(CategoryType.Custom);
+        variableCategory.setClazz("urule.signal.derive");
         variableCategories.add(variableCategory);
         result.add(variableCategories);
 

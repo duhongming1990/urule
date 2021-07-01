@@ -2,7 +2,12 @@ package com.bstek.urule.console.freemaker;
 
 import lombok.Getter;
 
-
+/**
+ * @Author duhongming
+ * @Email duhongming@lixiang.com
+ * @Date 2021/7/1 15:50
+ * @Description 
+ */
 @Getter
 public enum FreeMakerConfiguration {
 

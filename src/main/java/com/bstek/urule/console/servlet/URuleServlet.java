@@ -81,6 +81,7 @@ public class URuleServlet extends HttpServlet{
 				outContent(resp,"Handler ["+targetUrl+"] not exist.");
 				return;
 			}
+			resp.setHeader("Access-Control-Allow-Origin", "*");
 			targetHandler.execute(req, resp);
 		}catch(Exception ex){
 			Throwable e=getCause(ex);

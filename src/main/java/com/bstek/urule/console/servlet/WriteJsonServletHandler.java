@@ -34,7 +34,7 @@ import com.bstek.urule.Configure;
  */
 public abstract class WriteJsonServletHandler extends BaseServletHandler{
 	protected void writeObjectToJson(HttpServletResponse resp,Object obj) throws ServletException, IOException{
-		resp.setHeader("Access-Control-Allow-Origin", "*");
+//		resp.setHeader("Access-Control-Allow-Origin", "*");
 		resp.setContentType("text/json");
 		resp.setCharacterEncoding("UTF-8");
 		ObjectMapper mapper=new ObjectMapper();

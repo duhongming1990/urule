@@ -4,7 +4,12 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 import java.io.IOException;
-
+/**
+ * @Author duhongming
+ * @Email duhongming@lixiang.com
+ * @Date 2021/7/1 15:50
+ * @Description 
+ */
 public class RuleLuaConfiguration extends Configuration implements FreeMakerTemplate {
 
     /**
