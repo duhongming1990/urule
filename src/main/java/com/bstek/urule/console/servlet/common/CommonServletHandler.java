@@ -18,6 +18,7 @@ package com.bstek.urule.console.servlet.common;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.servlet.ServletException;
@@ -397,6 +398,13 @@ public class CommonServletHandler extends RenderPageServletHandler {
     public void getSignalLib(HttpServletRequest req, HttpServletResponse resp) {
         List<Object> result = new ArrayList<Object>();
 
+        result.add(getVariableCategories());
+
+        writeObjectToJson(resp, result);
+    }
+
+    @SneakyThrows
+    public static List<VariableCategory> getVariableCategories() {
         Connection connection = RepositoryBuilder.datasource.getConnection();
         List<Entity> entities = SqlExecutor.query(connection, "SELECT * FROM urule_signal_lib", new EntityListHandler(), new HashMap<>());
         List<Variable> variables = new ArrayList<>();
@@ -422,9 +430,7 @@ public class CommonServletHandler extends RenderPageServletHandler {
         variableCategory.setType(CategoryType.Custom);
         variableCategory.setClazz("urule.signal.derive");
         variableCategories.add(variableCategory);
-        result.add(variableCategories);
-
-        writeObjectToJson(resp, result);
+        return variableCategories;
     }
 
     /**

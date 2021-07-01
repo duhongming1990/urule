@@ -75,6 +75,8 @@ import com.bstek.urule.model.rule.loop.LoopRule;
 import com.bstek.urule.model.rule.loop.LoopStart;
 import com.bstek.urule.model.rule.loop.LoopTarget;
 
+import static com.bstek.urule.console.servlet.common.CommonServletHandler.getVariableCategories;
+
 /**
  * @author Jacky.gao
  * @since 2015年8月19日
@@ -474,6 +476,7 @@ public class RulesRebuilder {
 
 	private void rebuildCriteria(ResourceLibrary resLibraries,Criteria criteria,Map<String,String> namedMap,boolean forDSL) {
 		List<VariableCategory> variableCategories=resLibraries.getVariableCategories();
+		variableCategories.addAll(getVariableCategories());
 		Left left=criteria.getLeft();
 		LeftPart leftPart=left.getLeftPart();
 		if(leftPart instanceof VariableLeftPart){
