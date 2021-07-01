@@ -602,7 +602,7 @@ function buildLibContextMenu(){
             }
         },
         {
-            name:'添加变量库',
+            name:'添加信号库',
             icon:Styles.frameStyle.getVariableIcon(),
             click:function (data,dispatch) {
                 event.eventEmitter.emit(event.OPEN_CREATE_FILE_DIALOG,{fileType:'vl.xml',nodeData:data})
@@ -645,7 +645,7 @@ function buildFullContextMenu(isFolder,folderType){
     if(!folderType || folderType==='all' || folderType==='lib'){
         menus.push(
             {
-                name:'添加变量库',
+                name:'添加信号库',
                 icon:Styles.frameStyle.getVariableIcon(),
                 click:function (data,dispatch) {
                     event.eventEmitter.emit(event.OPEN_CREATE_FILE_DIALOG,{fileType:'vl.xml',nodeData:data})

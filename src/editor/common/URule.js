@@ -63,7 +63,7 @@ window.refreshParameterLibraries=function(){
 				item.initMenu(data);
 			});
 		}
-	});	
+	});
 };
 
 window.refreshVariableLibraries=function(){
@@ -76,12 +76,13 @@ window.refreshVariableLibraries=function(){
 			variableFiles+=";"+variable;
 		}
 	}
-	if(variableFiles=="" || variableFiles.length<2){
-		return;
-	}
-	var url=window._server+'/common/loadXml';
+	// if(variableFiles=="" || variableFiles.length<2){
+	// 	return;
+	// }
+	var url=window._server+'/common/getSignalLib';
 	$.ajax({
 		type:'POST',
+		// data:{files:variableFiles},
 		data:{files:variableFiles},
 		url:url,
 		error:function(req,error){
