@@ -15,14 +15,7 @@
  ******************************************************************************/
 package com.bstek.urule.builder;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-
+import com.bstek.urule.LocalCacheUtil;
 import com.bstek.urule.RuleException;
 import com.bstek.urule.action.Action;
 import com.bstek.urule.action.ConsolePrintAction;
@@ -38,44 +31,16 @@ import com.bstek.urule.model.library.action.SpringBean;
 import com.bstek.urule.model.library.constant.ConstantCategory;
 import com.bstek.urule.model.library.variable.Variable;
 import com.bstek.urule.model.library.variable.VariableCategory;
-import com.bstek.urule.model.rule.CommonFunctionValue;
-import com.bstek.urule.model.rule.ComplexArithmetic;
-import com.bstek.urule.model.rule.ConstantValue;
-import com.bstek.urule.model.rule.Library;
-import com.bstek.urule.model.rule.MethodValue;
-import com.bstek.urule.model.rule.NamedReferenceValue;
-import com.bstek.urule.model.rule.Other;
-import com.bstek.urule.model.rule.Parameter;
-import com.bstek.urule.model.rule.ParameterValue;
-import com.bstek.urule.model.rule.ParenValue;
-import com.bstek.urule.model.rule.Rhs;
-import com.bstek.urule.model.rule.Rule;
-import com.bstek.urule.model.rule.Value;
-import com.bstek.urule.model.rule.VariableCategoryValue;
-import com.bstek.urule.model.rule.VariableValue;
-import com.bstek.urule.model.rule.lhs.AbstractLeftPart;
-import com.bstek.urule.model.rule.lhs.CommonFunctionLeftPart;
-import com.bstek.urule.model.rule.lhs.CommonFunctionParameter;
-import com.bstek.urule.model.rule.lhs.Criteria;
-import com.bstek.urule.model.rule.lhs.CriteriaUnit;
-import com.bstek.urule.model.rule.lhs.Criterion;
-import com.bstek.urule.model.rule.lhs.FunctionLeftPart;
-import com.bstek.urule.model.rule.lhs.Junction;
-import com.bstek.urule.model.rule.lhs.JunctionType;
-import com.bstek.urule.model.rule.lhs.Left;
-import com.bstek.urule.model.rule.lhs.LeftPart;
-import com.bstek.urule.model.rule.lhs.LeftType;
-import com.bstek.urule.model.rule.lhs.MethodLeftPart;
-import com.bstek.urule.model.rule.lhs.NamedCriteria;
-import com.bstek.urule.model.rule.lhs.NamedItem;
-import com.bstek.urule.model.rule.lhs.NamedJunction;
-import com.bstek.urule.model.rule.lhs.VariableLeftPart;
+import com.bstek.urule.model.rule.*;
+import com.bstek.urule.model.rule.lhs.*;
 import com.bstek.urule.model.rule.loop.LoopEnd;
 import com.bstek.urule.model.rule.loop.LoopRule;
 import com.bstek.urule.model.rule.loop.LoopStart;
 import com.bstek.urule.model.rule.loop.LoopTarget;
+import org.apache.commons.lang.StringUtils;
 
-import static com.bstek.urule.console.servlet.common.CommonServletHandler.getVariableCategories;
+import java.util.*;
+
 
 /**
  * @author Jacky.gao
@@ -476,7 +441,7 @@ public class RulesRebuilder {
 
 	private void rebuildCriteria(ResourceLibrary resLibraries,Criteria criteria,Map<String,String> namedMap,boolean forDSL) {
 		List<VariableCategory> variableCategories=resLibraries.getVariableCategories();
-		variableCategories.addAll(getVariableCategories());
+		variableCategories.addAll(LocalCacheUtil.getLocalCache("signalLib"));
 		Left left=criteria.getLeft();
 		LeftPart leftPart=left.getLeftPart();
 		if(leftPart instanceof VariableLeftPart){

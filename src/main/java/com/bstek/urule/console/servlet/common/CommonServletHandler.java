@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.hutool.db.Entity;
 import cn.hutool.db.handler.EntityListHandler;
 import cn.hutool.db.sql.SqlExecutor;
+import com.bstek.urule.LocalCacheUtil;
 import com.bstek.urule.console.freemaker.FreeMakerConfiguration;
 
 import com.bstek.urule.console.repository.RepositoryBuilder;
@@ -41,6 +43,9 @@ import com.bstek.urule.model.rule.Rule;
 import com.bstek.urule.model.rule.RuleSet;
 import com.bstek.urule.model.rule.SimpleValue;
 import com.bstek.urule.model.rule.lhs.*;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import freemarker.template.Template;
@@ -398,40 +403,12 @@ public class CommonServletHandler extends RenderPageServletHandler {
     public void getSignalLib(HttpServletRequest req, HttpServletResponse resp) {
         List<Object> result = new ArrayList<Object>();
 
-        result.add(getVariableCategories());
+        result.add(LocalCacheUtil.getLocalCache("signalLib"));
 
         writeObjectToJson(resp, result);
     }
 
-    @SneakyThrows
-    public static List<VariableCategory> getVariableCategories() {
-        Connection connection = RepositoryBuilder.datasource.getConnection();
-        List<Entity> entities = SqlExecutor.query(connection, "SELECT * FROM urule_signal_lib", new EntityListHandler(), new HashMap<>());
-        List<Variable> variables = new ArrayList<>();
-        for (Entity entity : entities) {
-            Variable variable = new Variable();
-            variable.setName(entity.getStr("signal_name"));
-            variable.setType(Datatype.String);
-            variable.setLabel(entity.getStr("description"));
-            variable.setAct(Act.Internal);
-            variables.add(variable);
-        }
 
-        List<VariableCategory> variableCategories = new ArrayList<>();
-        VariableCategory variableCategory = new VariableCategory();
-        variableCategory.setName("内置信号库");
-        variableCategory.setType(CategoryType.BuildIn);
-        variableCategory.setClazz("urule.signal.lib");
-        variableCategory.setVariables(variables);
-        variableCategories.add(variableCategory);
-
-        variableCategory = new VariableCategory();
-        variableCategory.setName("派生信号库");
-        variableCategory.setType(CategoryType.Custom);
-        variableCategory.setClazz("urule.signal.derive");
-        variableCategories.add(variableCategory);
-        return variableCategories;
-    }
 
     /**
      * 解析表达式
