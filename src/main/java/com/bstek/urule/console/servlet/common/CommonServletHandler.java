@@ -17,6 +17,7 @@ package com.bstek.urule.console.servlet.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
@@ -29,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import cn.hutool.db.Entity;
 import cn.hutool.db.handler.EntityListHandler;
 import cn.hutool.db.sql.SqlExecutor;
+import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
 import com.bstek.urule.LocalCacheUtil;
 import com.bstek.urule.console.freemaker.FreeMakerConfiguration;
 
@@ -281,6 +284,7 @@ public class CommonServletHandler extends RenderPageServletHandler {
     public void loadXml(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Object> result = new ArrayList<Object>();
         String files = req.getParameter("files");
+        String isReview = req.getParameter("isReview");
         files = Utils.decodeURL(files);
         boolean isaction = false;
         if (files != null) {
@@ -342,13 +346,20 @@ public class CommonServletHandler extends RenderPageServletHandler {
                 }
             }
         }
-        writeObjectToJson(resp, result);
+        if (StringUtils.equals(isReview, "true")) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("content", JSON.toJSONString(result, true));
+            writeObjectToJson(resp, map);
+        } else {
+            writeObjectToJson(resp, result);
+        }
     }
 
     @SneakyThrows
     public void generateLua(HttpServletRequest req, HttpServletResponse resp) {
         RuleSet ruleSet = null;
         String files = req.getParameter("files");
+        String isReview = req.getParameter("isReview");
         files = Utils.decodeURL(files);
         if (files != null) {
 
@@ -394,9 +405,18 @@ public class CommonServletHandler extends RenderPageServletHandler {
 
         FreeMakerConfiguration freeMakerConfiguration = FreeMakerConfiguration.RULE_LUA_GENERATE;
         Template template = freeMakerConfiguration.getFreeMakerTemplate().getTemplate();
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/plain");
-        template.process(ruleSet, resp.getWriter());
+
+        if (StringUtils.equals(isReview, "true")) {
+            StringWriter stringWriter = new StringWriter();
+            template.process(ruleSet, stringWriter);
+            Map<String, Object> map = new HashMap<>();
+            map.put("content", stringWriter.toString());
+            writeObjectToJson(resp, map);
+        } else {
+            resp.setCharacterEncoding("UTF-8");
+            resp.setContentType("text/plain");
+            template.process(ruleSet, resp.getWriter());
+        }
     }
 
     @SneakyThrows
@@ -407,7 +427,6 @@ public class CommonServletHandler extends RenderPageServletHandler {
 
         writeObjectToJson(resp, result);
     }
-
 
 
     /**
