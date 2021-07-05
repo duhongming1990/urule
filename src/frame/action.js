@@ -340,7 +340,7 @@ function buildData(data,level) {
         case "rule":
             data._icon=Styles.frameStyle.getRuleIcon();
             data._style=Styles.frameStyle.getRuleIconStyle();
-            data.contextMenu=buildFileContextMenu();
+            data.contextMenu=buildFileContextMenu(0);
             data.editorPath="/ruleset-editor";
             break;
         case "project":
@@ -857,72 +857,155 @@ function buildPasteMenuItem() {
     };
 }
 
-function buildFileContextMenu() {
-    return [
-        {
-            name:'查看源码',
-            icon:'rf rf-code',
-            click:function (data,dispatch) {
-                seeFileSource(data);
+function buildFileContextMenu(type = 1) {
+    if(type !== 1) {
+        return [
+            {
+                name:'查看xml源码',
+                icon:'rf rf-code',
+                click:function (data,dispatch) {
+                    seeFileSource(data);
+                }
+            },
+            {
+                name:'查看json源码',
+                icon:'rf rf-code',
+                click:function (data,dispatch) {
+                    seeFileJsonSource(data);
+                }
+            },
+            {
+                name:'查看lua源码',
+                icon:'rf rf-code',
+                click:function (data,dispatch) {
+                    seeFileLuaSource(data);
+                }
+            },
+            {
+                name:'查看版本信息',
+                icon:'rf rf-version',
+                click:function (data,dispatch) {
+                    seeFileVersions(data);
+                }
+            },
+            {
+                name:'删除文件',
+                icon:'rf rf-remove',
+                click:function (data,dispatch) {
+                    bootbox.confirm("真的要删除["+data.name+"]文件吗？",function (result) {
+                        if(!result){
+                            return;
+                        }
+                        fileDelete(data,dispatch);
+                    });
+                }
+            },
+            {
+                name:'修改文件名',
+                icon:'rf rf-rename',
+                click:function (data,dispatch) {
+                    event.eventEmitter.emit(event.SHOW_RENAME_DIALOG,data);
+                }
+            },
+            {
+                name:'复制文件',
+                icon:'rf rf-copy',
+                click:function (data,dispatch) {
+                    window.___copyFileData=data;
+                    window.___cutFileData=null;
+                }
+            },
+            {
+                name:'剪切文件',
+                icon:'rf rf-cut',
+                click:function (data,dispatch) {
+                    window.___cutFileData=data;
+                    window.___copyFileData=null;
+                }
+            },
+            {
+                name:'锁定文件',
+                icon:'rf rf-lock',
+                click:function (data,dispatch) {
+                    lockFile(data.fullPath,dispatch);
+                }
+            },
+            {
+                name:'解锁文件',
+                icon:'rf rf-unlock',
+                click:function (data,dispatch) {
+                    unlockFile(data.fullPath,dispatch);
+                }
             }
-        },
-        {
-            name:'查看版本信息',
-            icon:'rf rf-version',
-            click:function (data,dispatch) {
-                seeFileVersions(data);
+        ];
+    } else {
+        return [
+            {
+                name:'查看xml源码',
+                icon:'rf rf-code',
+                click:function (data,dispatch) {
+                    seeFileSource(data);
+                }
+            },
+            {
+                name:'查看版本信息',
+                icon:'rf rf-version',
+                click:function (data,dispatch) {
+                    seeFileVersions(data);
+                }
+            },
+            {
+                name:'删除文件',
+                icon:'rf rf-remove',
+                click:function (data,dispatch) {
+                    bootbox.confirm("真的要删除["+data.name+"]文件吗？",function (result) {
+                        if(!result){
+                            return;
+                        }
+                        fileDelete(data,dispatch);
+                    });
+                }
+            },
+            {
+                name:'修改文件名',
+                icon:'rf rf-rename',
+                click:function (data,dispatch) {
+                    event.eventEmitter.emit(event.SHOW_RENAME_DIALOG,data);
+                }
+            },
+            {
+                name:'复制文件',
+                icon:'rf rf-copy',
+                click:function (data,dispatch) {
+                    window.___copyFileData=data;
+                    window.___cutFileData=null;
+                }
+            },
+            {
+                name:'剪切文件',
+                icon:'rf rf-cut',
+                click:function (data,dispatch) {
+                    window.___cutFileData=data;
+                    window.___copyFileData=null;
+                }
+            },
+            {
+                name:'锁定文件',
+                icon:'rf rf-lock',
+                click:function (data,dispatch) {
+                    lockFile(data.fullPath,dispatch);
+                }
+            },
+            {
+                name:'解锁文件',
+                icon:'rf rf-unlock',
+                click:function (data,dispatch) {
+                    unlockFile(data.fullPath,dispatch);
+                }
             }
-        },
-        {
-            name:'删除文件',
-            icon:'rf rf-remove',
-            click:function (data,dispatch) {
-                bootbox.confirm("真的要删除["+data.name+"]文件吗？",function (result) {
-                    if(!result){
-                        return;
-                    }
-                    fileDelete(data,dispatch);
-                });
-            }
-        },
-        {
-            name:'修改文件名',
-            icon:'rf rf-rename',
-            click:function (data,dispatch) {
-                event.eventEmitter.emit(event.SHOW_RENAME_DIALOG,data);
-            }
-        },
-        {
-            name:'复制文件',
-            icon:'rf rf-copy',
-            click:function (data,dispatch) {
-                window.___copyFileData=data;
-                window.___cutFileData=null;
-            }
-        },
-        {
-            name:'剪切文件',
-            icon:'rf rf-cut',
-            click:function (data,dispatch) {
-                window.___cutFileData=data;
-                window.___copyFileData=null;
-            }
-        },
-        {
-            name:'锁定文件',
-            icon:'rf rf-lock',
-            click:function (data,dispatch) {
-                lockFile(data.fullPath,dispatch);
-            }
-        },
-        {
-            name:'解锁文件',
-            icon:'rf rf-unlock',
-            click:function (data,dispatch) {
-                unlockFile(data.fullPath,dispatch);
-            }
-        }
-    ];
+        ];
+    }
+
 };
 
 export function lockFile(file,dispatch){
@@ -1013,6 +1096,52 @@ export function seeFileSource(data) {
         url,
         type:'POST',
         data:{path:data.fullPath},
+        success:function (result) {
+            event.eventEmitter.emit(event.OPEN_SOURCE_DIALOG,data.fullPath,result.content);
+        },
+        error:function (response) {
+            if(response.status===401){
+                bootbox.alert("权限不足，不能进行此操作.");
+            }else{
+                if(response && response.responseText){
+                    bootbox.alert("<span style='color: red'>服务端错误："+response.responseText+"</span>");
+                }else{
+                    bootbox.alert("<span style='color: red'>服务端出错</span>");
+                }
+            }
+        }
+    });
+};
+
+export function seeFileJsonSource(data) {
+    var url=window._server+"/common/loadXml?files=jcr:"+data.fullPath+"&isReview=true";
+    $.ajax({
+        url,
+        type:'POST',
+        // data:{path:data.fullPath},
+        success:function (result) {
+            event.eventEmitter.emit(event.OPEN_SOURCE_DIALOG,data.fullPath,result.content);
+        },
+        error:function (response) {
+            if(response.status===401){
+                bootbox.alert("权限不足，不能进行此操作.");
+            }else{
+                if(response && response.responseText){
+                    bootbox.alert("<span style='color: red'>服务端错误："+response.responseText+"</span>");
+                }else{
+                    bootbox.alert("<span style='color: red'>服务端出错</span>");
+                }
+            }
+        }
+    });
+};
+
+export function seeFileLuaSource(data) {
+    var url=window._server+"/common/generateLua?files=jcr:"+data.fullPath+"&isReview=true";
+    $.ajax({
+        url,
+        type:'POST',
+        // data:{path:data.fullPath},
         success:function (result) {
             event.eventEmitter.emit(event.OPEN_SOURCE_DIALOG,data.fullPath,result.content);
         },
