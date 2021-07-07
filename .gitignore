@@ -1,8 +1,7 @@
 .idea/
 *.iml
-urule-console/target/
-urule-core/target/
-urule-springboot/target/
+target/
 node_modules/
 dist/
 entryBuild/
+
