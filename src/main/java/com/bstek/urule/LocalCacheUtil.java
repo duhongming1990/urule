@@ -13,12 +13,12 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import lombok.SneakyThrows;
+import org.apache.commons.lang.StringUtils;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -53,33 +53,64 @@ public class LocalCacheUtil {
                 }
             });
 
+    /**
+     * 信号库
+     *
+     * @return
+     */
     @SneakyThrows
     public static List<VariableCategory> getVariableCategories() {
         Connection connection = RepositoryBuilder.datasource.getConnection();
         List<Entity> entities = SqlExecutor.query(connection, "SELECT * FROM urule_signal_lib", new EntityListHandler(), new HashMap<>());
-        List<Variable> variables = new ArrayList<>();
-        for (Entity entity : entities) {
-            Variable variable = new Variable();
-            variable.setName(entity.getStr("signal_name"));
-            variable.setType(Datatype.String);
-            variable.setLabel(entity.getStr("description"));
-            variable.setAct(Act.Internal);
-            variables.add(variable);
-        }
-
         List<VariableCategory> variableCategories = new ArrayList<>();
-        VariableCategory variableCategory = new VariableCategory();
-        variableCategory.setName("内置信号库");
-        variableCategory.setType(CategoryType.BuildIn);
-        variableCategory.setClazz("urule.signal.lib");
-        variableCategory.setVariables(variables);
-        variableCategories.add(variableCategory);
+        VariableCategory variableCategory = null;
+        for (Entity entity : entities) {
+            String signalName = entity.getStr("signal_name");
+            String description = entity.getStr("description");
+            String dateType = entity.getStr("data_type");
+            if (StringUtils.isBlank(signalName) && StringUtils.isNotBlank(description) && StringUtils.isBlank(dateType)) {
+                variableCategory = new VariableCategory();
+                variableCategory.setName(description);
+                variableCategory.setType(CategoryType.BuildIn);
+                variableCategory.setClazz("urule.signal.lib");
+                List<Variable> variables = new ArrayList<>();
+                variableCategory.setVariables(variables);
+                variableCategories.add(variableCategory);
+            } else {
+                Variable variable = new Variable();
+                variable.setName(signalName);
+                variable.setType(Datatype.String);
+                variable.setLabel(signalName);
+                variable.setTitle(description);
+                variable.setAct(Act.Internal);
+                variableCategory.getVariables().add(variable);
+            }
+        }
 
         variableCategory = new VariableCategory();
         variableCategory.setName("派生信号库");
         variableCategory.setType(CategoryType.Custom);
         variableCategory.setClazz("urule.signal.derive");
+
+        List<Variable> variables = new ArrayList<>();
+        Variable variable = new Variable();
+        variable.setName("尾门计时器");
+        variable.setType(Datatype.String);
+        variable.setLabel("尾门计时器");
+        variable.setTitle("尾门计时器");
+        variable.setAct(Act.Internal);
+        variables.add(variable);
+        variable = new Variable();
+        variable.setName("油箱口盖计时器");
+        variable.setType(Datatype.String);
+        variable.setLabel("油箱口盖计时器");
+        variable.setTitle("油箱口盖计时器");
+        variable.setAct(Act.Internal);
+        variables.add(variable);
+
+        variableCategory.setVariables(variables);
         variableCategories.add(variableCategory);
+
         return variableCategories;
     }
 
